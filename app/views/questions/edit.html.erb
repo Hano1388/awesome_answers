@@ -1,0 +1,22 @@
+<h1>Edit Question</h1>
+<%# When you pass a persisted object to `form_for` then it will use the url to
+    the update action which is the same url for the show action
+    (question_path(@question)) and it will use PATCH for the verb by using a
+    technique of having a hidden field within the form with name `_method` and
+    value `PATCH`. Also, all the fields will be prepopulated with data from
+    the database. Also, note that the `submit` button will have a different
+    text in here which will be `update question` %>
+<!-- <%= @question.errors.full_messages.join(', ') %>
+<%= form_for @question do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="form-control">
+    <%= f.label :body %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %> -->
+
+<%= render 'form'%>

@@ -1,0 +1,44 @@
+<%# When you pass a persisted object to `form_for` then it will use the url to
+    the update action which is the same url for the show action
+    (question_path(@question)) and it will use PATCH for the verb by using a
+    technique of having a hidden field within the form with name `_method` and
+    value `PATCH`. Also, all the fields will be prepopulated with data from
+    the database. Also, note that the `submit` button will have a different
+    text in here which will be `update question` %>
+
+
+    <%# When you pass a persisted object to `form_for` then it will use the url to
+        the update action which is the same url for the show action
+        (question_path(@question)) and it will use PATCH for the verb by using a
+        technique of having a hidden field within the form with name `_method` and
+        value `PATCH`. Also, all the fields will be prepopulated with data from
+        the database. Also, note that the `submit` button will have a different
+        text in here which will be `update question` %>
+
+
+        <%= @question.errors.full_messages.join(', ') %>
+        <%= form_for @question do |f| %>
+          <div class="form-group">
+            <%= f.label :title %>
+            <%# this f.text_field will generate an `input` HTML tag with the proper
+                `name` attribute which will be `question[title]` in this case. It will
+                also set the value to the input field to whatever the @question object
+                has preset for that perticular attribute (in this title) %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-control">
+            <%= f.label :body %>
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+          <div>
+            <%= f.label :category %>
+            <%= f.collection_select :category_id,
+              Category.all,
+              :id, # this represent the method that is used for the option tag's value
+              :name, # this repesents the method that is used for the option tag's text
+              include_blank: true,
+              prompt: 'Choose a category'
+              %>
+          </div>
+          <%= f.submit class: 'btn btn-primary' %>
+        <% end %>

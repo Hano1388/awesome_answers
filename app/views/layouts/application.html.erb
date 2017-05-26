@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Awesome Answers</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+
+    <%# link_to: is a built-in Rails helper method to generate a <a> link, the
+                 first argument is the anchor text and the second argument is
+                 the URL %>
+    <%= link_to('Home', home_path) %>
+    <%# we prefer the line above ð to the line below ð %>
+    <!-- <a href='/'>Home</a> -->
+    <!-- this ð will make a GET http request to `/` url -->
+    |
+    <%= link_to 'All Questions', questions_path %>
+    |
+    <%= link_to('Contact Us', contact_url) %>
+
+    <% if user_signed_in? %>
+    Hello <%= current_user.first_name %>
+
+    <%= link_to 'Sign Out', sessions_path, method: :delete  %>
+    <% else %>
+    |
+    <%= link_to 'Sign In', new_session_path %>
+    |
+    <%= link_to 'Sign Up', new_user_path %>
+    <% end %>
+
+    <!-- <a href='/contact'>Contact Us</a> -->
+    <hr>
+
+    <% if flash[:notice] %>
+      <div class='alert alert-success'><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class='alert alert-danger'><%= flash[:alert] %></div>
+    <% end %>
+
+    <%# the content of each template (such as /app/views/welcome/index.html.erb)
+        will be inserted in place of the `yield` below. %>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+
+<!-- # ctr + .
+# ctrl + shift + .
+# ctr + shift + 3 -->
+<h1>Contact Us</h1>
+
+<%# contact_submit_path will be the `action` to the form which is in our case
+    `/contact_submit`. Forms will have `POST` as their `method` by default %>
+<%= form_tag contact_submit_path do %>
+<div>
+  <%=label_tag :name %>
+  <%=text_field_tag :name %>
+</div>
+<div>
+  <%=label_tag :message %>
+  <%=text_area_tag :message %>
+</div>
+  <%= submit_tag 'Contact Us!' %>
+<% end %>
