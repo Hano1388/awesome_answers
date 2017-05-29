@@ -25,7 +25,6 @@ class QuestionsController < ApplicationController
     @question = Question.new question_params
     # @question.user_id = session[:user_id]
     @question.user = current_user
-
     if @question.save
       # redirect_to question_path({ id: @question.id })
       # redirect_to question_path({ id: @question })
@@ -55,10 +54,16 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    # head will send an empty HTTP response with a specific code, in this case
+    # the code is 401 (:unauthorized), to see a list of available codes in Rails
+    # you can visit: http://billpatrianakos.me/blog/2013/10/13/list-of-rails-status-code-symbols/
+    head :unauthorized unless can? :edit, @question
   end
 
   def update
-    if @question.update(question_params)
+    if !(can? :update, @question)
+      head :unauthorized
+    elsif @question.update(question_params)
       # if you have a `redirect_to` and you'd like to specify a flash message
       # then you can just pass in the `flash` or `alert` as options to the
       # `redirect_to` instead of having a separate line. Please note that this
@@ -70,8 +75,12 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question.destroy
-    redirect_to questions_path, notice: 'Question deleted'
+    if can? :destroy, @question
+      @question.destroy
+      redirect_to questions_path, notice: 'Question deleted'
+    else
+      head :unauthorized
+    end
   end
 
   private

@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
   before_action :find_answer, only: [:destroy]
   def create
     @question = Question.find params[:question_id]
-    answer_params = params.require(:answer).permit(:body)
+    # answer_params = params.require(:answer).permit(:body)
     @answer = Answer.new answer_params
     @answer.question = @question
     if @answer.save
