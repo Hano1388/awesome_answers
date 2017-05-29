@@ -11,4 +11,9 @@
 // about supported directives.
 //
 //= require rails-ujs
+// = require welcome 
 //= require_tree .
+
+// require-tree will require all files including folders or subfolders in the
+// /app/assets/javascript folder. The files will include an alphabetical
+// order uless you specify like we did for welcome
