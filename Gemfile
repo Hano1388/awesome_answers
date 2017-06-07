@@ -52,6 +52,7 @@ end
 group :development do
   gem 'interactive_editor'
   gem 'awesome_print'
+  gem "letter_opener"
   # the hirb gem gives the nice§ view in rails c to tables
   gem 'hirb'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

@@ -1,1 +1,0 @@
-rails g controller questions
