@@ -16,6 +16,9 @@ class Question < ApplicationRecord
   # ':destroy' which will delete all associated answers before deleting the question and
   # ':nullify' which will update all the 'question_id' fields on the associated answers to be 'NULL' before deleting the question
   has_many :answers, dependent: :destroy
+
+  has_many :likes, dependent: :destroy
+  has_many :likers, through: :likes, source: :user
   # has_many :answers, dependent: :nullify
 
   # has_many :answers expects that the answers table will have the questions_id reference column

@@ -7,7 +7,7 @@ class AnswersController < ApplicationController
     @answer = Answer.new answer_params
     @answer.question = @question
     if @answer.save
-      AnswersMailer.notify_questions_owner(@answer).deliver_now
+      AnswersMailer.notify_questions_owner(@answer).deliver_later
       redirect_to question_path(@question), notice: "Answer Created"
 
     else
