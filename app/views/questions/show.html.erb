@@ -5,6 +5,15 @@ url: http://localhost:3000/questions/(some id in our questions table) -->
 <p><strong>Category: </strong> <%= @question&.category&.name %></p>
 <p><strong>Author: </strong> <%= @question&.user&.full_name %></p>
 
+<% if user_signed_in? && can?(:like, @question) %>
+  <% if @like %>
+      <%= link_to fa_icon('thumbs-up lg'), question_like_path(@question, @like), method: :delete %>
+  <% else %>
+    <%= link_to fa_icon('thumbs-o-up lg'), question_likes_path(@question), method: :post %>
+  <% end %>
+<% end %>
+
+(<%= pluralize @question.likes.count, 'like' %>)
 
 <% if user_signed_in?%>
     <% if can? :edit, @question %>
@@ -13,6 +22,7 @@ url: http://localhost:3000/questions/(some id in our questions table) -->
 
     <%# when you use `method: :delete`. Rails will use Javascript to mimick a
        delete request to the server %>
+
     <% if can? :destroy, @question %>
     | <%= link_to 'Delete', question_path(@question),
                             method: :delete,

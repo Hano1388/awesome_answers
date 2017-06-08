@@ -21,16 +21,31 @@ Rails.application.routes.draw do
       delete :destroy, on: :collection
     end
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create] do
+    # create routes
+    # /user/:user_id/liked_questions
+    get 'liked_questions', to: 'questions#index'
+  end
 
   # /questions/5/answers <- POST
   # /questions/5/answers <- GET
 
   resources :questions do
+    resources :likes, only: [:create, :destroy]
     resources :answers, only: [:create, :destroy]
     # adds the following nested routes
     # /questions/:question_id/answers VERB: post
     # /questions/:question_id/answers/:id VERB: delete
+  end
+
+  # giving an empty array to the only option
+  #  means no routes will be created for that resources
+  #  but we can still use it to create nested routes
+  resources :answers, only: [] do
+    # this creates the routes
+    # /answers/:answer_id/likes VERB: post
+    # /answers/:answer_id/likes/:id VERB: delete
+    resources :likes, only: [:create, :destroy]
   end
   # resources :questions, only: [:new, :create]
   # resources :questions, except: [:edit, :update

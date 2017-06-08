@@ -38,6 +38,12 @@ class Ability
       question.user == user
     end
 
+    can :like, Question do |question|
+      question.user != user
+    end
+    cannot :like, Question do |question|
+      question.user == user 
+    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
