@@ -5,6 +5,49 @@ url: http://localhost:3000/questions/(some id in our questions table) -->
 <p><strong>Category: </strong> <%= @question&.category&.name %></p>
 <p><strong>Author: </strong> <%= @question&.user&.full_name %></p>
 
+<!-- Reddit style voting UI -->
+
+
+
+<div class="voting-buttons">
+  <% if @vote.nil? %>
+    <%= link_to fa_icon('chevron-up lg'),
+      question_votes_path(@question, { is_up: true }),
+      method: :post
+    %>
+    <%= @question.vote_total %>
+    <%= link_to fa_icon('chevron-down lg'),
+      question_votes_path(@question, { is_up: false }),
+      method: :post
+    %>
+  <% elsif @vote.is_up? %>
+    <%= link_to fa_icon('chevron-up 2x'),
+      question_vote_path(@question, @vote),
+      method: :delete
+    %>
+    <%= @question.vote_total %>
+    <%= link_to fa_icon('chevron-down lg'),
+      question_vote_path(@question, @vote, { is_up: false }),
+      method: :patch
+    %>
+  <% else %>
+    <%= link_to fa_icon('chevron-up lg'),
+      question_vote_path(@question, @vote, { is_up: true }),
+      method: :patch
+    %>
+    <%= @question.vote_total %>
+    <%= link_to fa_icon('chevron-down 2x'),
+      question_vote_path(@question, @vote),
+      method: :delete
+    %>
+  <% end %>
+</div>
+
+<!-- Reddit style voting UI -->
+
+
+
+
 <% if user_signed_in? && can?(:like, @question) %>
   <% if @like %>
       <%= link_to fa_icon('thumbs-up lg'), question_like_path(@question, @like), method: :delete %>

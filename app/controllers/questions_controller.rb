@@ -46,20 +46,11 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @like = @question.likes.find_by(id: params[:user_id])
+    @like = @question.likes.find_by(user_id: current_user)
+    @vote = @question.votes.find_by(user_id: current_user)
     @answer = Answer.new
     @answers = @question.answers.order(created_at: :desc)
   end
-
-  # def index
-  #   @user = User.find_by(id: params[:user_id])
-  #   if @user
-  #     @questions = @user.liked_questions.order(created_at: :desc)
-  #   else
-  #     @questions = Question.recent(30)
-  #   end
-  # end
-
   def index
     if params.has_key? :user_id
       @user = User.find(params[:user_id])

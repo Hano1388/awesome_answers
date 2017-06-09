@@ -19,6 +19,9 @@ class Question < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user
+
+  has_many :votes, dependent: :destroy
+  has_many :voters, through: :votes, source: :user
   # has_many :answers, dependent: :nullify
 
   # has_many :answers expects that the answers table will have the questions_id reference column
@@ -61,6 +64,10 @@ class Question < ApplicationRecord
     title.upcase
   end
 
+  def vote_total
+    votes.up.count - votes.down.count
+  end
+  
   private
 
   def set_defaults

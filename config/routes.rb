@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :questions do
     resources :likes, only: [:create, :destroy]
     resources :answers, only: [:create, :destroy]
+    resources :votes, only: [:create, :update, :destroy]
     # adds the following nested routes
     # /questions/:question_id/answers VERB: post
     # /questions/:question_id/answers/:id VERB: delete
