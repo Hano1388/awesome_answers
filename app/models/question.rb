@@ -22,6 +22,11 @@ class Question < ApplicationRecord
 
   has_many :votes, dependent: :destroy
   has_many :voters, through: :votes, source: :user
+
+  has_many :taggings, dependent: :destroy
+  # We don't have to give has_many a source when the name of
+  # the relationship is the same as the source
+  has_many :tags, through: :taggings
   # has_many :answers, dependent: :nullify
 
   # has_many :answers expects that the answers table will have the questions_id reference column
@@ -67,7 +72,7 @@ class Question < ApplicationRecord
   def vote_total
     votes.up.count - votes.down.count
   end
-  
+
   private
 
   def set_defaults

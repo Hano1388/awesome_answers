@@ -2,6 +2,9 @@
 url: http://localhost:3000/questions/(some id in our questions table) -->
 <h1><%= @question.title %></h1>
 <p><%= @question.body %></p>
+
+<p>Tags: <%= @question.tags.map(&:name).join(', ') %></p>
+
 <p><strong>Category: </strong> <%= @question&.category&.name %></p>
 <p><strong>Author: </strong> <%= @question&.user&.full_name %></p>
 
