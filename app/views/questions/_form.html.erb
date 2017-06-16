@@ -30,15 +30,13 @@
             <%= f.label :body %>
             <%= f.text_area :body, class: 'form-control' %>
           </div>
+          
           <div class="form-group">
             <%= f.label :tag_ids %>
-            <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |b| %>
-            <div class="tag-wrapper">
-              <%= b.check_box %>
-              <%= b.text %>
-            </div>
-            <% end %>
+            <%= f.collection_select :tag_ids, Tag.all, :id, :name,
+             {}, { multiple: true, class: 'chosen-select'} %>
           </div>
+
           <div>
             <%= f.label :category %>
             <%= f.collection_select :category_id,

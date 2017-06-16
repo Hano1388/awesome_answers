@@ -22,12 +22,16 @@ gem "delayed_job_web"
 gem 'rails', '~> 5.1.1'
 gem "font-awesome-rails"
 
+gem 'jquery-rails'
+gem 'chosen-rails'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'rails-erd'
 
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 # Use Uglifier as compressor for JavaScript assets
