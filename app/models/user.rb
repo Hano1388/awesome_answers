@@ -30,9 +30,27 @@ class User < ApplicationRecord
 
   private
 
+  # You can the .send method to call private methods
+  # This should avoided in code, but useful in a pinch when
+  # when working in the console. It can also be
+  # used to dynamically call a method from a string.
+  # u = User.last
+  # u.send(:generate_api_key)
   def downcase_email
     # self.email.downcase! if email.present?
     self.email&.downcase!
+  end
+
+  def generate_api_key
+
+    loop do
+      # SecureRandom.hex(32) will generate a 32 byte
+      # string of random hex characters
+      self.api_key = SecureRandom.hex(32)
+      # We then check that no user already posses that
+      # api_key. If no user has that key, exit the loop.
+      break unless User.exists?(api_key: api_key)
+    end
   end
 
 end

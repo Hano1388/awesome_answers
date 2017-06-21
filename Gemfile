@@ -18,6 +18,7 @@ gem 'cancancan', '~> 2.0'
 
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
+gem 'active_model_serializers'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
 gem "font-awesome-rails"

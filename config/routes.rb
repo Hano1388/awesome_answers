@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+  # /api/v1/questions
+
+  # using the defaults: argument, we can provide a set of
+  # options that will be default for every nested route.
+  #  In this case, every route inside of the :api namespace,
+  #  will render json by default instead of html.
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :questions, only: [:index, :show, :create]
+    end
+  end
+
   match "/delayed_job" => DelayedJobWeb, :anchor => false, :via => [:get, :post]
 
   # get 'sessions/new'
