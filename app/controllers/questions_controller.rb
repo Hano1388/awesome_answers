@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
   def index
     if params.has_key? :user_id
       @user = User.find(params[:user_id])
-      @questions = @user.liked_questions.order(created_at: :desc)
+      @questions = @user.liked_questions.order(created_at: :DESC)
     else
       @questions = Question.recent(30)
     end

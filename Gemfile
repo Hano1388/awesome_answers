@@ -25,6 +25,7 @@ gem "font-awesome-rails"
 
 gem 'jquery-rails'
 gem 'chosen-rails'
+gem 'rack-cors'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
