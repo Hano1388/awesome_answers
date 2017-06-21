@@ -1,5 +1,18 @@
+// 257f5a2fe594c50eb6b23045aada2c34568adcca2eab4543e8798fe4049af114
 const BASE_URL = 'http://localhost:3000/api/v1';
 const API_KEY = '257f5a2fe594c50eb6b23045aada2c34568adcca2eab4543e8798fe4049af114';
+
+function postQuestion (questionFormData) {
+  const headers = new Headers({
+    'Authorization':`Apikey ${API_KEY}`
+  });
+  return fetch(`${BASE_URL}/questions`, {
+    method: 'POST',
+    body: questionFormData,
+    headers
+  })
+    .then(res => res.json());
+}
 
 function getQuestions () {
   const headers = new Headers({
@@ -36,7 +49,7 @@ function renderQuestionList (questions) {
 
 function renderQuestionDetails (question) {
   return `
-    <a href class='back-button'>Back</a>
+    <a href class="back-button">Back</a>
     <h1>${question.title}</h1>
     <p>${question.body}</p>
     <p><strong>Author:</strong> ${question.author_full_name}</p>
@@ -59,9 +72,47 @@ function renderAnswerList (answers) {
 document.addEventListener('DOMContentLoaded', () => {
   const questionList = document.querySelector('#questions-list');
   const questionDetails = document.querySelector('#question-details');
+  const questionForm = document.querySelector('#question-form');
+  // NAV BAR ELEMENTS
+  const navQuestionIndex = document.querySelector('#nav-question-index');
+  const navQuestionNew= document.querySelector('#nav-question-new');
+
+  function showQuestion (id) {
+    return getQuestion(id)
+      .then(question => {
+        questionList.classList.add('hidden');
+        questionDetails.innerHTML = renderQuestionDetails(question);
+        questionDetails.classList.remove('hidden');
+        questionForm.classList.add('hidden');
+
+      });
+  }
+
+  function newQuestion () {
+    questionList.classList.add('hidden');
+    questionDetails.classList.add('hidden');
+    questionForm.classList.remove('hidden');
+  }
+
+  function indexQuestion () {
+    questionList.classList.remove('hidden');
+    questionDetails.classList.add('hidden');
+    questionForm.classList.add('hidden');
+
+  }
 
   getQuestions().then(questions => {
     questionList.innerHTML = renderQuestionList(questions);
+  })
+
+  questionForm.addEventListener('submit', event => {
+    const { currentTarget } = event;
+    event.preventDefault();
+
+    postQuestion(new FormData(currentTarget))
+      .then(({id}) => {
+        showQuestion(id);
+      });
   })
 
   questionList.addEventListener('click', event => {
@@ -69,17 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (target.matches('a.question-link')) {
       event.preventDefault();
       const id = target.getAttribute('data-id');
-      getQuestion(id)
-        .then(question => {
-          questionList.classList.add('hidden');
-          questionDetails.innerHTML = renderQuestionDetails(question);
-        });
+      showQuestion(id);
     }
+
     if (target.matches('a.back-button')) {
       event.preventDefault();
-      questionList.classList.remove('hidden');
-      questionDetails.classList.add('hidden');
+      indexQuestion();
     }
+  });
+
+  navQuestionIndex.addEventListener('click', event => {
+    event.preventDefault();
+    indexQuestion();
+  });
+  navQuestionNew.addEventListener('click', event => {
+    event.preventDefault();
+    newQuestion();
   });
 });
 

@@ -56,7 +56,7 @@ class QuestionsController < ApplicationController
       @user = User.find(params[:user_id])
       @questions = @user.liked_questions.order(created_at: :DESC)
     else
-      @questions = Question.recent(30)
+      @questions = Question.recent(30).order(created_at: :DESC)
     end
     # respond_to enables us to send different responeses depending
       # on the format of the request
