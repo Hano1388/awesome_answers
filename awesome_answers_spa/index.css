@@ -8,6 +8,10 @@ html {
   font-weight: 100;
 }
 
+.hidden {
+  display: none;
+}
+
 .question-summary {
   margin-bottom: 20px;
 }
