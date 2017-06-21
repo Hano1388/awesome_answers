@@ -2,6 +2,18 @@
 const BASE_URL = 'http://localhost:3000/api/v1';
 const API_KEY = '257f5a2fe594c50eb6b23045aada2c34568adcca2eab4543e8798fe4049af114';
 
+function deleteQuestion (id) {
+  const headers = new Headers({
+    'Authorization':`Apikey ${API_KEY}`
+  });
+  return fetch(`${BASE_URL}/questions/${id}`, {
+    method: 'DELETE',
+    headers
+  })
+    .then(res => res.json());
+}
+
+
 function postQuestion (questionFormData) {
   const headers = new Headers({
     'Authorization':`Apikey ${API_KEY}`
@@ -53,6 +65,11 @@ function renderQuestionDetails (question) {
     <h1>${question.title}</h1>
     <p>${question.body}</p>
     <p><strong>Author:</strong> ${question.author_full_name}</p>
+    <a href
+      class="delete-button"
+      data-id="${question.id}">
+      Delete
+    </a>
     <h2>Answers</h2>
     ${renderAnswerList(question.answers)}
   `;
@@ -101,9 +118,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   }
 
-  getQuestions().then(questions => {
-    questionList.innerHTML = renderQuestionList(questions);
-  })
+  function reloadQuestions () {
+    return getQuestions().then(questions => {
+      questionList.innerHTML = renderQuestionList(questions);
+    })
+  }
+  reloadQuestions();
 
   questionForm.addEventListener('submit', event => {
     const { currentTarget } = event;
@@ -126,6 +146,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (target.matches('a.back-button')) {
       event.preventDefault();
       indexQuestion();
+    }
+  });
+
+  questionDetails.addEventListener('click', event => {
+    const {target} = event;
+    if (target.matches('a.delete-button')) {
+      event.preventDefault();
+      const id = target.getAttribute('data-id');
+      deleteQuestion(id)
+        .then(() => reloadQuestions())
+        .then(() => indexQuestion());
     }
   });
 

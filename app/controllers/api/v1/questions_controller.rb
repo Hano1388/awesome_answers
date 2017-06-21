@@ -1,6 +1,6 @@
 class Api::V1::QuestionsController < Api::ApplicationController
   before_action :authenticate_user!
-  before_action :find_question, only: [:show]
+  before_action :find_question, only: [:show, :destroy]
   def show
     # Test if we are using current_user
     # render json: current_user
@@ -30,6 +30,16 @@ class Api::V1::QuestionsController < Api::ApplicationController
     else
       render json: { errors: question.errors.full_messages }
     end
+  end
+
+  def destroy
+
+    if @question.destroy
+      render json: @question
+    else
+      render json: { errors: @question.errors.full_messages.join(', ') }
+    end
+    
   end
 
   private
