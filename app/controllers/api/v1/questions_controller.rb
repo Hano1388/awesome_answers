@@ -9,7 +9,7 @@ class Api::V1::QuestionsController < Api::ApplicationController
   end
 
   def index
-    @questions = Question.all
+    @questions = Question.all.order(created_at: :DESC)
     # by default, rails will to look for an instance variable named
     # after controller and it will render (in this case as json)
 
@@ -39,7 +39,7 @@ class Api::V1::QuestionsController < Api::ApplicationController
     else
       render json: { errors: @question.errors.full_messages.join(', ') }
     end
-    
+
   end
 
   private

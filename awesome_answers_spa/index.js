@@ -142,12 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const id = target.getAttribute('data-id');
       showQuestion(id);
     }
-
-    if (target.matches('a.back-button')) {
-      event.preventDefault();
-      indexQuestion();
-    }
   });
+
 
   questionDetails.addEventListener('click', event => {
     const {target} = event;
@@ -157,6 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
       deleteQuestion(id)
         .then(() => reloadQuestions())
         .then(() => indexQuestion());
+    }
+    if (target.matches('a.back-button')) {
+      event.preventDefault();
+      indexQuestion();
     }
   });
 
