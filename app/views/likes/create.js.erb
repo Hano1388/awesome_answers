@@ -1,0 +1,11 @@
+// document
+//   .getElementById('flash-message')
+// <% if flash[:notice] %>
+//   .innerHTML = "<div class='alert alert-success'><%= flash[:notice] %></div>";
+// <% elsif flash[:alert] %>
+//   .innerHTML = "<div class='alert alert-alert'><%= flash[:alert] %></div>";
+// <% end %>
+
+document
+.querySelector('.liked_button')
+.innerHTML = "<%= j render 'like', like: @like %>";

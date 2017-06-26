@@ -1,9 +1,13 @@
 <% answers&.each do |answer|%>
-  <div>
+  <div id="<%= dom_id(answer) %>">
+    <!-- or we can generate with out (dom) helper method  -->
+      <!-- <div id="answer_<%= answer.id %>"> -->
     <p>
       <%= answer.body %>
       <%= link_to "🗑", [@question, answer],
-      method: :delete, data: {confirm: 'Are you sure?'} %>
+      method: :delete,
+      remote: :true,
+      data: {confirm: 'Are you sure?'} %>
     </p>
     <hr>
   </div>

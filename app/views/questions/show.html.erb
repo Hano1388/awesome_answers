@@ -16,16 +16,10 @@ url: http://localhost:3000/questions/(some id in our questions table) -->
 
 
 
+<div class="liked_button">
+  <%= render "likes/like", like: @like %>
+</div>
 
-<% if user_signed_in? && can?(:like, @question) %>
-  <% if @like %>
-      <%= link_to fa_icon('thumbs-up lg'), question_like_path(@question, @like), method: :delete %>
-  <% else %>
-    <%= link_to fa_icon('thumbs-o-up lg'), question_likes_path(@question), method: :post %>
-  <% end %>
-<% end %>
-
-(<%= pluralize @question.likes.count, 'like' %>)
 
 <% if user_signed_in?%>
     <% if can? :edit, @question %>

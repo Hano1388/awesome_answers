@@ -39,12 +39,13 @@
     <!-- <a href='/contact'>Contact Us</a> -->
     <hr>
 
-    <% if flash[:notice] %>
-      <div class='alert alert-success'><%= flash[:notice] %></div>
-    <% elsif flash[:alert] %>
-      <div class='alert alert-danger'><%= flash[:alert] %></div>
-    <% end %>
-
+    <div id="flash_message">
+      <% if flash[:notice] %>
+        <div class='alert alert-success'><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class='alert alert-danger'><%= flash[:alert] %></div>
+      <% end %>
+    </div>
     <%# the content of each template (such as /app/views/welcome/index.html.erb)
         will be inserted in place of the `yield` below. %>
     <%= yield %>
