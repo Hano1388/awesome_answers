@@ -1,0 +1,5 @@
+<%= form_for [@question, answer], remote: true do |f| %>
+<%= answer&.pretty_errors %>
+<%= f.text_area :body %>
+<%= f.submit %>
+<% end %>

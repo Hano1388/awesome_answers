@@ -1,0 +1,9 @@
+if (!answers) {
+  let answers = document.querySelector('#answers');
+}
+answers.innerHTML = "<%= j render 'answers', answers: @question.answers %>";
+// document.querySelector('#new_answer').reset();
+
+document
+.querySelector('#new_answer')
+.outerHTML = "<%= j render 'form', answer: Answer.new %>"

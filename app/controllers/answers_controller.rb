@@ -6,12 +6,16 @@ class AnswersController < ApplicationController
     # answer_params = params.require(:answer).permit(:body)
     @answer = Answer.new answer_params
     @answer.question = @question
-    if @answer.save
-      AnswersMailer.notify_questions_owner(@answer).deliver_later
-      redirect_to question_path(@question), notice: "Answer Created"
+    respond_to do |format|
+      if @answer.save
+        AnswersMailer.notify_questions_owner(@answer).deliver_later
+        format.html {redirect_to question_path(@question), notice: "Answer Created" }
+        format.js { render :create_success }
 
-    else
-      render 'questions/show'
+      else
+        format.html { render 'questions/show' }
+        format.js { render :create_failure }
+      end
     end
   end
 

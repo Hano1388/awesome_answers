@@ -1,5 +1,5 @@
 class Api::V1::QuestionsController < Api::ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :find_question, only: [:show, :destroy]
   def show
     # Test if we are using current_user

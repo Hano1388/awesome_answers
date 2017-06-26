@@ -1,6 +1,7 @@
-// 257f5a2fe594c50eb6b23045aada2c34568adcca2eab4543e8798fe4049af114
+// 35ca420a09c683b3bd37daec102a9524b0cd211bddcab0168cdfa9f577b1a650
 const BASE_URL = 'http://localhost:3000/api/v1';
-const API_KEY = '257f5a2fe594c50eb6b23045aada2c34568adcca2eab4543e8798fe4049af114';
+// const API_KEY = '257f5a2fe594c50eb6b23045aada2c34568adcca2eab4543e8798fe4049af114';
+const API_KEY = '35ca420a09c683b3bd37daec102a9524b0cd211bddcab0168cdfa9f577b1a650';
 
 function deleteQuestion (id) {
   const headers = new Headers({
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     questionForm.classList.remove('hidden');
   }
 
-  function indexQuestion () {
+  // function indexQuestion () {
     questionList.classList.remove('hidden');
     questionDetails.classList.add('hidden');
     questionForm.classList.add('hidden');

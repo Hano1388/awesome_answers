@@ -44,21 +44,14 @@ url: http://localhost:3000/questions/(some id in our questions table) -->
 
 <h2>Answers</h2>
 <% if user_signed_in? %>
-  <!-- <%= @answer.errors.full_messages.join(', ') %> -->
-  <%= form_for [@question, @answer] do |f| %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
-  <% end %>
+  <%= @answer.errors.full_messages.join(', ') %>
+  <%= render'answers/form', answer: @answer %>
 <% end %>
 
-
-<% @answers&.each do |answer|%>
-  <div>
-    <p>
-      <%= answer.body %>
-      <%= link_to "🗑", [@question, answer],
-      method: :delete, data: {confirm: 'Are you sure?'} %>
-    </p>
-    <hr>
-  </div>
-  <% end %>
+<div id="answers">
+  <%# when calling render to render any template, we can pass
+  it key/value arguments where the key will be a local variable
+  inside the partial. (e.g. answers becomes a local variable of the
+  partial answers/answers with the value of @answers) %>
+  <%= render 'answers/answers', answers: @answers %>
+</div>
