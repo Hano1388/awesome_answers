@@ -107,7 +107,7 @@ class QuestionsController < ApplicationController
   def question_params
     # params.require(:question).permit([:title, :body, :category_id, :tag_ids])
     # we can not permit tag as above, we need to permit it as a hash because we get more than one value from it
-    params.require(:question).permit([:title, :body, :category_id, { tag_ids: [] }])
+    params.require(:question).permit([:title, :body, :image, :category_id, { tag_ids: [] }])
   end
 
   def find_question

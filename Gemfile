@@ -22,7 +22,14 @@ gem 'active_model_serializers'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
 gem "font-awesome-rails"
+
 gem 'simple_form'
+
+gem 'carrierwave', '~> 1.0'
+
+gem 'mini_magick'
+
+gem 'fog'
 
 gem 'jquery-rails'
 gem 'chosen-rails'

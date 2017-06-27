@@ -60,6 +60,8 @@ class Question < ApplicationRecord
   after_initialize :set_defaults
   before_validation :titleize_title
 
+  mount_uploader :image, ImageUploader
+
   # scope :recent, lambda {|number| order(created_at: :desc). limit(number)}
   def self.recent(number)
     order(created_at: :desc).limit(number)

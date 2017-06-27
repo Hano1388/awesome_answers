@@ -1,24 +1,6 @@
-# README
+# Awesome Answers
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup Instructions
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- make sure to run `rails db:create db:migrate`
+- Duplicate the file `config/initializers/app_keys.rb.example` to `config/initializers/app_keys.rb` and set a proper Gmail username and password there. You will also need AWS S3 keys if you need to upload files to S3.
