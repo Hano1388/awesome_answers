@@ -16,8 +16,9 @@
         text in here which will be `update question` %>
 
 
-        <%= @question.errors.full_messages.join(', ') %>
+        <!-- <%= @question.errors.full_messages.join(', ') %>
         <%= form_for @question do |f| %>
+
           <div class="form-group">
             <%= f.label :title %>
             <%# this f.text_field will generate an `input` HTML tag with the proper
@@ -30,7 +31,7 @@
             <%= f.label :body %>
             <%= f.text_area :body, class: 'form-control' %>
           </div>
-          
+
           <div class="form-group">
             <%= f.label :tag_ids %>
             <%= f.collection_select :tag_ids, Tag.all, :id, :name,
@@ -48,4 +49,24 @@
               %>
           </div>
           <%= f.submit class: 'btn btn-primary' %>
-        <% end %>
+        <% end %> -->
+
+
+
+
+<!-- ///////////////// -->
+<%= simple_form_for @question do |f| %>
+  <%# simple_form detects the type of the input based on the field's database
+      column type: string -> text field
+                   text -> textarea
+                   integer -> number field
+      simple_form will add a star near the label if there is presence validator
+      of the field. If you don't like that you can add `required: false`  %>
+  <%= f.input :title, required: false %>
+  <%= f.input :body %>
+  <%= f.association :tags, input_html: { multiple: true, class: 'chosen-select' } %>
+  <%= f.association :category, include_blank: true, prompt: 'Choose a category' %>
+
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
