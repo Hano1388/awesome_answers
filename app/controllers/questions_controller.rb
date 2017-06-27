@@ -82,7 +82,10 @@ class QuestionsController < ApplicationController
   def update
     if !(can? :update, @question)
       head :unauthorized
-    elsif @question.update(question_params)
+      # we added `.merge({ slug: nil }` because we want to force friendly_id to
+      # regenerate the `slug` for the question, in case the user has entered
+      # a new title
+      elsif @question.update(question_params.merge({ slug: nil }))
       # if you have a `redirect_to` and you'd like to specify a flash message
       # then you can just pass in the `flash` or `alert` as options to the
       # `redirect_to` instead of having a separate line. Please note that this

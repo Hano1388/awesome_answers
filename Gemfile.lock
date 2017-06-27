@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/norman/friendly_id.git
+  revision: 718b1bcad8e47ccde8a4b559b734505a49d313a7
+  specs:
+    friendly_id (5.2.1)
+      activerecord (>= 4.0.0)
+
+GIT
   remote: https://github.com/stympy/faker.git
   revision: ebf26149bf63c0d079e01c98e5bc226e33edd437
   specs:
@@ -394,6 +401,7 @@ DEPENDENCIES
   faker!
   fog
   font-awesome-rails
+  friendly_id!
   hirb
   interactive_editor
   jbuilder (~> 2.5)

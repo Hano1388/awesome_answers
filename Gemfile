@@ -31,6 +31,8 @@ gem 'mini_magick'
 
 gem 'fog'
 
+gem 'friendly_id', github: 'norman/friendly_id'
+
 gem 'jquery-rails'
 gem 'chosen-rails'
 gem 'rack-cors'
