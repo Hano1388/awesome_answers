@@ -9,6 +9,20 @@ class WelcomeController < ApplicationController
   # When we want to create a page or do something in our controller we define
   # public methods and we call them: Actions
   def index
+    # If you ever get error message like so `uninitialized constant WelcomeController::Twitter`
+    # this means ruby thinks that Twitter used below is actually part of
+    # this controller class. To work around and make sure ruby considers Twitter
+    # a global constant, prefix it with ::
+    if user_signed_in?
+      client = ::Twitter::REST::Client.new do |config|
+        config.consumer_key        = ENV['TWITTER_API_KEY']
+        config.consumer_secret     = ENV['TWITTER_API_SECRET']
+        config.access_token        = current_user.oath_token
+        config.access_token_secret = current_user.oath_secret
+      end
+    end
+    # byebug
+
     # render 'welcome/index'
     #👆 the line above is redundent in this case because the default behaviour
     # for all controller actions is to render:

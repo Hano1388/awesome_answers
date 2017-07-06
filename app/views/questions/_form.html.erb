@@ -69,5 +69,9 @@
 
   <%= f.input :image %>
 
+  <% if current_user.provider == 'twitter' %>
+    <%= f.input :tweet_this, as: :boolean %>
+  <% end %>
+
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>

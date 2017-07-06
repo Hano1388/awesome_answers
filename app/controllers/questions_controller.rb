@@ -26,6 +26,18 @@ class QuestionsController < ApplicationController
     # @question.user_id = session[:user_id]
     @question.user = current_user
     if @question.save
+
+      if @question.tweet_this
+        client = ::Twitter::REST::Client.new do |config|
+          config.consumer_key        = ENV['TWITTER_API_KEY']
+          config.consumer_secret     = ENV['TWITTER_API_SECRET']
+          config.access_token        = current_user.oath_token
+          config.access_token_secret = current_user.oath_secret
+        end
+
+        client.update "#{@question.title.slice(0..(question_url(@question).size + 3))} - #{question_url(@question.id)}"
+      end
+
       QuestionReminderJob.set(wait: 5.days).perform_later(@question.id)
       # redirect_to question_path({ id: @question.id })
       # redirect_to question_path({ id: @question })
@@ -43,6 +55,7 @@ class QuestionsController < ApplicationController
       # again (with errors). The default behaviour is to render `create.html.erb`
       render :new
     end
+
   end
 
   def show
@@ -110,7 +123,7 @@ class QuestionsController < ApplicationController
   def question_params
     # params.require(:question).permit([:title, :body, :category_id, :tag_ids])
     # we can not permit tag as above, we need to permit it as a hash because we get more than one value from it
-    params.require(:question).permit([:title, :body, :image, :category_id, { tag_ids: [] }])
+    params.require(:question).permit([:title, :body, :image, :tweet_this, :category_id, { tag_ids: [] }])
   end
 
   def find_question

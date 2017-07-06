@@ -3,6 +3,8 @@
 # Also, Rails will give you attribute accessor to all the columns of the table.
 class Question < ApplicationRecord
 
+  attr_accessor :tweet_this
+
   belongs_to :user ,optional: true
 
   # belongs_to :category

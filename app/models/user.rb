@@ -25,6 +25,10 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :voted_questions, through: :votes, source: :question
 
+  def from_omniauth?
+    uid.present? && provider.present?
+  end
+  
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -74,13 +78,23 @@ class User < ApplicationRecord
     )
   end
 
+  # sometimes if an oauth application changes its permissions, the User
+  # will be asked again for authorization. If this happens, the user will
+  # new oauth credentials. We need to update the user in that situation.
+  def update_oath_credentials(omniauth_data)
+    token = omniauth_data['credentials']['token']
+    secret = omniauth_data['credentials']['secret']
+
+    if oath_token != token || oath_secret != secret
+      self.update oath_token: token, oath_secret: secret
+    end
+  end
+
+
   def self.find_from_omniauth(omniauth_data)
     User.find_by(provider: omniauth_data["provider"], uid: omniauth_data["uid"])
   end
 
-  private
-  def from_omniauth?
-    uid.present? && provider.present?
-  end
+
 
 end

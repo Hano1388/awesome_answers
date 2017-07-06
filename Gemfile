@@ -17,6 +17,7 @@ ruby '2.4.1'
 gem 'cancancan', '~> 2.0'
 
 gem 'omniauth-twitter'
+gem 'twitter'
 
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
