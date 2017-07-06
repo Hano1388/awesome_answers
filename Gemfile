@@ -16,6 +16,8 @@ end
 ruby '2.4.1'
 gem 'cancancan', '~> 2.0'
 
+gem 'omniauth-twitter'
+
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
 gem 'active_model_serializers'

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/auth/twitter', as: :sign_in_with_twitter
+  get 'auth/:provider/callback' => "callbacks#index"
   # /api/v1/questions
 
   # using the defaults: argument, we can provide a set of
